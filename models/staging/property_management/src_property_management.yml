@@ -1,0 +1,20 @@
+version: 2
+
+sources: 
+    - name: property_management
+      database: raw
+      schema: property_management
+      tables:
+        - name: rental_applications
+        - name: email_delivery_statuses
+        - name: emails
+        - name: tenants
+        - name: properties
+        - name: leases
+        - name: bank_accounts
+        - name: contact_infos
+        - name: owners
+        - name: vendors
+        - name: property_owners
+        - name: units
+        - name: transactions
