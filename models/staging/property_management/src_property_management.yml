@@ -6,15 +6,67 @@ sources:
       schema: property_management
       tables:
         - name: rental_applications
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
         - name: email_delivery_statuses
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
         - name: emails
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
         - name: tenants
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
         - name: properties
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
         - name: leases
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
         - name: bank_accounts
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
         - name: contact_infos
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
         - name: owners
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
         - name: vendors
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
         - name: property_owners
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
         - name: units
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
         - name: transactions
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
