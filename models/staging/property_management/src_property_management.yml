@@ -1,0 +1,151 @@
+version: 2
+
+sources: 
+    - name: property_management
+      database: raw
+      schema: property_management
+      tables:
+        - name: rental_applications
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
+          columns:
+            - name: id
+              tests:
+                - unique
+                - not_null
+        - name: email_delivery_statuses
+          description: Delivery status of all emails
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
+          columns:
+            - name: id
+              description: primary key
+              tests:
+                - unique
+                - not_null
+        - name: emails
+          description: All emails
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
+          columns:
+            - name: id
+              description: primary key
+              tests:
+                - unique
+                - not_null
+        - name: tenants
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
+          columns:
+            - name: id
+              tests:
+                - unique
+                - not_null
+        - name: properties
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
+          columns:
+            - name: id
+              tests:
+                - unique
+                - not_null
+        - name: leases
+          description: All leases
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
+          columns:
+            - name: id
+              description: primary key
+              tests:
+                - unique
+                - not_null
+            - name: unit_id
+              description: foreign key from units
+        - name: bank_accounts
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
+          columns:
+            - name: id
+              tests:
+                - unique
+                - not_null
+        - name: contact_infos
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
+          columns:
+            - name: id
+              tests:
+                - unique
+                - not_null
+        - name: owners
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
+          columns:
+            - name: id
+              tests:
+                - unique
+                - not_null
+        - name: vendors
+          description: All people making or receiving a transaction, contains foreign keys for contact info and bank account
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
+          columns:
+            - name: id
+              description: primary key
+              tests:
+                - unique
+                - not_null
+        - name: property_owners
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
+          columns:
+            - name: id
+              tests:
+                - unique
+                - not_null
+        - name: units
+          description: All rental units
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
+          columns:
+            - name: id
+              description: primary key
+              tests:
+                - unique
+                - not_null
+        - name: transactions
+          description: All transactions, with transaction type, amount, and transaction parties
+          loaded_at_field: uploaded_at
+          freshness:
+            warn_after: {count: 1, period: day}
+            error_after: {count: 2, period: day}
+          columns:
+            - name: id
+              description: primary key
+              tests:
+                - unique
+                - not_null
