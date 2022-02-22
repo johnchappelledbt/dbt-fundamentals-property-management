@@ -27,7 +27,8 @@ transactions as (
         created_at, 
         type,
         amount,
-        payer 
+        payer,
+        payee 
     from {{ ref('stg_transactions') }}
 
 ),
@@ -36,17 +37,17 @@ final as (
     select
         transactions.transaction_id,
         transactions.payer,
+        transactions.payee,
         leases.unit_id,
         units.rent,
         transactions.amount as amount_paid,
-        transactions.created_at as date_paid
+        transactions.created_at as date_paid,
+        transactions.type as transaction_type
 
     from transactions
     left join tenants on tenants.full_name = transactions.payer
     join leases on leases.lease_id = tenants.lease_id
     join units on units.unit_id = leases.lease_id
-    where transactions.type = 'charge'
-    and transactions.amount = units.rent
     order by payer asc, date_paid desc
 
 )

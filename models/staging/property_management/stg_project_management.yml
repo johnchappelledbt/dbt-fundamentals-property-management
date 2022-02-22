@@ -1,0 +1,190 @@
+version: 2
+
+models:
+  - name: stg_rental_applications
+    description: All rental applications, with application status
+    columns:
+      - name: rental_application_id
+        description: primary key for rental applications
+        tests:
+          - unique
+          - not_null
+      - name: status
+        tests:
+          - accepted_values:
+              values:
+                  - approved
+                  - converted_to_tenant
+                  - denied
+      - name: contact_info_id
+        tests:
+          - relationships:
+              to: ref('stg_contact_infos')
+              field: contact_info_id
+  - name: stg_email_delivery_statuses
+    columns:
+      - name: delivery_status_id
+        tests:
+          - unique
+          - not_null
+      - name: status
+        tests:
+          - accepted_values:
+              values:
+                  - processing
+                  - processed
+                  - rejected
+                  - delivered
+                  - opened
+                  - clicked
+      - name: email_id
+        tests:
+          - relationships:
+              to: ref('stg_emails')
+              field: email_id
+  - name: stg_emails
+    columns:
+      - name: email_id
+        tests:
+          - unique
+          - not_null
+  - name: stg_tenants
+    description: All tenants, with associated lease and bank account
+    columns:
+      - name: tenant_id
+        description: primary key for tenants
+        tests:
+          - unique
+          - not_null
+      - name: contact_info_id
+        tests:
+          - relationships:
+              to: ref('stg_contact_infos')
+              field: contact_info_id
+      - name: bank_account_id
+        tests:
+          - relationships:
+              to: ref('stg_bank_accounts')
+              field: bank_account_id
+      - name: lease_id
+        tests:
+          - relationships:
+              to: ref('stg_leases')
+              field: lease_id
+  - name: stg_properties
+    description: All properties
+    columns:
+      - name: property_id
+        description: primary key for properties
+        tests:
+          - unique
+          - not_null
+      - name: type
+        description: type of property, i.e. hoa, commercial, single_family, multi_family
+        tests:
+          - accepted_values:
+              values:
+                - commercial
+                - homeowners_association
+                - multi_family_residence
+                - single_family_residence
+  - name: stg_leases
+    columns:
+      - name: lease_id
+        tests:
+          - unique
+          - not_null
+      - name: unit_id
+        tests:
+          - relationships:
+              to: ref('stg_units')
+              field: unit_id
+  - name: stg_bank_accounts
+    description: All bank accounts, with bank name, associated account holder, account and routing number
+    columns:
+      - name: bank_account_id
+        description: primary key for bank accounts
+        tests:
+          - unique
+          - not_null
+  - name: stg_contact_infos
+    description: Contact info for associated individuals
+    columns:
+      - name: contact_info_id
+        tests:
+          - unique
+          - not_null
+  - name: stg_owners
+    description: Owners metadata, with associated contact info and bank account
+    columns:
+      - name: owner_id
+        description: primary key for owners
+        tests:
+          - unique
+          - not_null
+      - name: contact_info_id
+        description: foreign key relating to contact_info model
+        tests:
+          - relationships:
+              to: ref('stg_contact_infos')
+              field: contact_info_id
+      - name: bank_account_id
+        description: foreign key relating to bank_accounts model
+        tests:
+          - relationships:
+              to: ref('stg_bank_accounts')
+              field: bank_account_id
+  - name: stg_vendors
+    columns:
+      - name: vendor_id
+        tests:
+          - unique
+          - not_null
+  - name: stg_property_owners
+    description: '{{ doc("property_owners") }}'
+    columns:
+      - name: property_owner_id
+        tests:
+          - unique
+          - not_null
+      - name: property_id
+        tests:
+          - relationships:
+              to: ref('stg_properties')
+              field: property_id
+      - name: owner_id
+        tests:
+          - relationships:
+              to: ref('stg_owners')
+              field: owner_id
+  - name: stg_units
+    columns:
+      - name: unit_id
+        tests:
+          - unique
+          - not_null
+      - name: status
+        tests:
+          - accepted_values:
+              values:
+                  - construction
+                  - occupied
+                  - rented
+                  - vacant
+      - name: property_id
+        tests:
+          - relationships:
+              to: ref('stg_properties')
+              field: property_id
+  - name: stg_transactions
+    columns:
+      - name: transaction_id
+        tests:
+          - unique
+          - not_null
+      - name: type
+        tests:
+          - accepted_values:
+              values:
+                  - charge
+                  - credit
